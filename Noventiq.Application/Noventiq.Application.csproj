@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="IServices\Extensions\" />
+    <Folder Include="IServices\Interfaces\" />
+    <Folder Include="IServices\Models\Common\" />
+    <Folder Include="IServices\Settings\" />
+    <Folder Include="Services\Settings\" />
+  </ItemGroup>
+
+</Project>

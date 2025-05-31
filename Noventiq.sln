@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36127.28 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noventiq.API", "Noventiq.Task\Noventiq.API.csproj", "{DBAA8D7A-304D-491B-A516-3BE842697629}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noventiq.Application", "Noventiq.Application\Noventiq.Application.csproj", "{066177FC-CF7C-4705-A9B6-437622EDCA66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noventiq.Domain", "Noventiq.Domain\Noventiq.Domain.csproj", "{482BDE2B-C822-4042-B1B7-52E59333B878}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBAA8D7A-304D-491B-A516-3BE842697629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBAA8D7A-304D-491B-A516-3BE842697629}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBAA8D7A-304D-491B-A516-3BE842697629}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBAA8D7A-304D-491B-A516-3BE842697629}.Release|Any CPU.Build.0 = Release|Any CPU
+		{066177FC-CF7C-4705-A9B6-437622EDCA66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{066177FC-CF7C-4705-A9B6-437622EDCA66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{066177FC-CF7C-4705-A9B6-437622EDCA66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{066177FC-CF7C-4705-A9B6-437622EDCA66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{482BDE2B-C822-4042-B1B7-52E59333B878}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{482BDE2B-C822-4042-B1B7-52E59333B878}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{482BDE2B-C822-4042-B1B7-52E59333B878}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{482BDE2B-C822-4042-B1B7-52E59333B878}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6D6131AA-4020-40C7-81C8-E4E8A64C0566}
+	EndGlobalSection
+EndGlobal

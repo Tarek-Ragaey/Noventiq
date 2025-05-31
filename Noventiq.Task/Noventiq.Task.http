@@ -1,0 +1,6 @@
+@Noventiq.Task_HostAddress = http://localhost:5190
+
+GET {{Noventiq.Task_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
