@@ -1,4 +1,6 @@
-﻿namespace Noventiq.API.Middleware
+﻿using Noventiq.Application.IServices.Models.Common;
+
+namespace Noventiq.API.Middleware
 {
     public class LanguageMiddleware
     {

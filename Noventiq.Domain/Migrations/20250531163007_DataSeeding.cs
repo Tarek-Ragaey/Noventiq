@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System.Data;
-using System.Security.Principal;
 
 #nullable disable
 
-namespace Noventiq.Migrations
+namespace Noventiq.Domain.Migrations
 {
     /// <inheritdoc />
     public partial class DataSeeding : Migration

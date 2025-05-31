@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
-using Noventiq.Repositories;
-using Noventiq.IServices.Interfaces;
-using Noventiq.Services.Services;
-using Noventiq.Services.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Noventiq.Middleware;
+using Noventiq.Domain;
+using Noventiq.Application.IServices.Interfaces;
+using Noventiq.Application.Settings;
+using Noventiq.Application.Services.Services;
+using Noventiq.API.Middleware;
 
 namespace Noventiq
 {

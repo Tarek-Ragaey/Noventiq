@@ -7,11 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="IServices\Extensions\" />
-    <Folder Include="IServices\Interfaces\" />
-    <Folder Include="IServices\Models\Common\" />
     <Folder Include="IServices\Settings\" />
-    <Folder Include="Services\Settings\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.16" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Noventiq.Domain\Noventiq.Domain.csproj" />
   </ItemGroup>
 
 </Project>

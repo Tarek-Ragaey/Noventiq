@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Noventiq.Repositories;
+using Noventiq.Domain;
 
 #nullable disable
 
-namespace Noventiq.Migrations
+namespace Noventiq.Domain.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250531120716_updateRefreshTokenIndex")]
-    partial class updateRefreshTokenIndex
+    [Migration("20250531163007_DataSeeding")]
+    partial class DataSeeding
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -223,7 +223,7 @@ namespace Noventiq.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Noventiq.Repositories.Entities.RefreshToken", b =>
+            modelBuilder.Entity("Noventiq.Domain.Entites.RefreshToken", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -231,14 +231,14 @@ namespace Noventiq.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("ExpiryDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsRevoked")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime>("IssuedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Token")
                         .IsRequired()
@@ -258,7 +258,7 @@ namespace Noventiq.Migrations
                     b.ToTable("RefreshTokens");
                 });
 
-            modelBuilder.Entity("Noventiq.Repositories.Entities.RoleTranslation", b =>
+            modelBuilder.Entity("Noventiq.Domain.Entites.RoleTranslation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -337,18 +337,18 @@ namespace Noventiq.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Noventiq.Repositories.Entities.RefreshToken", b =>
+            modelBuilder.Entity("Noventiq.Domain.Entites.RefreshToken", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Noventiq.Repositories.Entities.RoleTranslation", b =>
+            modelBuilder.Entity("Noventiq.Domain.Entites.RoleTranslation", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", "Role")
                         .WithMany()
