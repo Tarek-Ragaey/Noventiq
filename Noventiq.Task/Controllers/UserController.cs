@@ -5,6 +5,8 @@ using Noventiq.Application.IServices.Extensions;
 using Noventiq.Application.IServices.Interfaces;
 using Noventiq.Application.IServices.Models;
 using Noventiq.Application.IServices.Models.Common;
+using System;
+using System.Threading.Tasks;
 
 namespace Noventiq.API.Controllers
 {
@@ -34,7 +36,14 @@ namespace Noventiq.API.Controllers
             return BadRequest(new { Message = string.Join(", ", result.Errors.Select(e => e.Description)) });
         }
 
+        /// <summary>
+        /// Gets all users with pagination and their roles
+        /// </summary>
         [HttpGet]
+        [Authorize(Roles = "Super Admin")]
+        [ProducesResponseType(typeof(IEnumerable<UserListDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> GetAllUsers([FromQuery] PaginationParams paginationParams)
         {
             // Get language from HttpContext.Items (set by middleware)
@@ -51,7 +60,7 @@ namespace Noventiq.API.Controllers
 
             Response.AddPaginationHeader(paginationHeader);
 
-            return Ok(users.Select(u => new { u.Id, u.UserName, u.Email }));
+            return Ok(users);
         }
 
         [HttpGet("{id}")]
@@ -63,8 +72,6 @@ namespace Noventiq.API.Controllers
 
             return Ok(new { user.Id, user.UserName, user.Email, Roles = roles });
         }
-
-
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(string id)

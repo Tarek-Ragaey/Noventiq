@@ -71,17 +71,42 @@ namespace Noventiq.Application.Services.Services
             }
         }
 
-        public async Task<(IEnumerable<IdentityUser> Users, int TotalCount)> GetAllUsersAsync(PaginationParams paginationParams)
+        public async Task<(IEnumerable<UserListDto> Users, int TotalCount)> GetAllUsersAsync(PaginationParams paginationParams)
         {
-            var query = _userManager.Users;
-            var totalCount = await query.CountAsync();
+            // Create a query that joins users with their roles
+            var query = from user in _userManager.Users
+                        join userRole in _context.UserRoles
+                            on user.Id equals userRole.UserId into userRoles
+                        from ur in userRoles.DefaultIfEmpty()
+                        join role in _context.Roles
+                            on ur.RoleId equals role.Id into roles
+                        group new { user, role = roles.FirstOrDefault() } by user into g
+                        select new
+                        {
+                            User = g.Key,
+                            Roles = g.Select(x => x.role.Name)
+                                .Where(name => name != null)
+                                .ToList()
+                        };
 
-            var users = await query
+            // Get total count
+            var totalCount = await _userManager.Users.CountAsync();
+
+            // Get paginated users with their roles
+            var usersWithRoles = await query
+                .OrderBy(u => u.User.UserName)
                 .Skip((paginationParams.PageNumber - 1) * paginationParams.PageSize)
                 .Take(paginationParams.PageSize)
+                .Select(x => new UserListDto
+                {
+                    Id = x.User.Id,
+                    UserName = x.User.UserName,
+                    Email = x.User.Email,
+                    Roles = x.Roles
+                })
                 .ToListAsync();
 
-            return (users, totalCount);
+            return (usersWithRoles, totalCount);
         }
 
         public async Task<(IdentityUser User, IList<string> Roles)> GetUserByIdAsync(string id)
