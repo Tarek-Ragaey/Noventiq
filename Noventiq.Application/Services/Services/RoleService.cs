@@ -126,11 +126,43 @@ namespace Noventiq.Application.Services.Services
         }
         public async Task<IdentityResult> DeleteRoleAsync(string roleName)
         {
-            var role = await _roleManager.FindByNameAsync(roleName);
-            if (role == null)
-                return IdentityResult.Failed(new IdentityError { Description = "Role not found" });
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                var role = await _roleManager.FindByNameAsync(roleName);
+                if (role == null)
+                    return IdentityResult.Failed(new IdentityError { Description = "Role not found" });
 
-            return await _roleManager.DeleteAsync(role);
+                // First delete the translations
+                var translations = await _context.RoleTranslations
+                    .Where(rt => rt.RoleId == role.Id)
+                    .ToListAsync();
+
+                if (translations.Any())
+                {
+                    _context.RoleTranslations.RemoveRange(translations);
+                    await _context.SaveChangesAsync();
+                }
+
+                // Then delete the role
+                var result = await _roleManager.DeleteAsync(role);
+                if (!result.Succeeded)
+                {
+                    await transaction.RollbackAsync();
+                    return result;
+                }
+
+                await transaction.CommitAsync();
+                return IdentityResult.Success;
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync();
+                return IdentityResult.Failed(new IdentityError 
+                { 
+                    Description = $"Failed to delete role: {ex.Message}" 
+                });
+            }
         }
 
         public async Task<IdentityResult> AssignRoleToUserAsync(string userId, string roleName)
