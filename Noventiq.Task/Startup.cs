@@ -28,6 +28,24 @@ namespace Noventiq
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // Configure CORS Settings
+            var corsSettings = Configuration.GetSection("CorsSettings").Get<CorsSettings>();
+            services.Configure<CorsSettings>(Configuration.GetSection("CorsSettings"));
+
+            // Add CORS before other service configurations
+            services.AddCors(options =>
+            {
+                options.AddPolicy("ReactAppPolicy",
+                    builder =>
+                    {
+                        builder
+                            .WithOrigins(corsSettings.AllowedOrigins)
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .AllowCredentials();
+                    });
+            });
+
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
@@ -99,6 +117,9 @@ namespace Noventiq
 
             app.UseHttpsRedirection();
             app.UseRouting();
+
+            // Add CORS middleware before authentication and authorization
+            app.UseCors("ReactAppPolicy");
 
             // Add language middleware before authentication and authorization
             app.UseLanguageMiddleware();
