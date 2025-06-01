@@ -61,6 +61,7 @@ namespace Noventiq
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
 
             // Configure JWT Settings
             services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));

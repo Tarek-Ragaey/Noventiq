@@ -17,9 +17,10 @@ namespace Noventiq.Application.Services.Services
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ApplicationDbContext _context;
 
-        public UserService(UserManager<IdentityUser> userManager)
+        public UserService(UserManager<IdentityUser> userManager, ApplicationDbContext context)
         {
             _userManager = userManager;
+            _context = context;
         }
 
         public async Task<(IdentityResult Result, UserDto User)> CreateUserAsync(CreateUserModel model)
